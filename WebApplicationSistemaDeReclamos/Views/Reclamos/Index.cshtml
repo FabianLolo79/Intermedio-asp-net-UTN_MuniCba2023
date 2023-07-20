@@ -1,0 +1,88 @@
+﻿@model IEnumerable<WebApplicationSistemaDeReclamos.Models.ViewModels.ReclamoViewModel>
+
+@{
+    ViewData["Title"] = "Index - Listado de Reclamos";
+}
+
+<h1>Index - Listado de Reclamos</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<form class="row row-cols-lg-auto g-3 align-items-center">
+  <div class="col-6">
+    <label class="visually-hidden" for="inlineFormInputGroupUsername">Username</label>
+    <div class="input-group">
+      <input type="text" class="form-control" id="inlineFormInputGroupUsername" placeholder="¿que buscamos?">
+    </div>
+  </div>
+
+  <div class="col-6">
+        <button type="submit" class="btn btn-success">Buscar</button>
+  </div>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Titulo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Descripcion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Estado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaAlta)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Titulo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descripcion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Estado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaAlta)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }, 
+                        new { @Class="btn btn-danger", onclick="borrarReclamo(this); return false;" })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<script>
+    // OJO ESTO ES 100% JavaScript!!!!
+    function borrarReclamo(linkActual) {
+        console.log(linkActual);
+
+        bootbox.confirm('¿Borramos el reclamo?', function(resultado) {
+            if (resultado == true) {
+                window.location = linkActual.href;
+            }
+        });
+    }
+
+</script>
